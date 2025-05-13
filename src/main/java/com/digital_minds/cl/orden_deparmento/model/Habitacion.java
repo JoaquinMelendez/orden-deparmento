@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,4 +28,8 @@ public class Habitacion {
 
     @Column(nullable = false)
     private int cantPiezas;
+
+    @ManyToOne //tabla intermedia?? RESERVA ???
+    @JoinColumn(name = "residencia_id")
+    private Residencia residencia;
 }
