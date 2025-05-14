@@ -1,10 +1,9 @@
 package com.digital_minds.cl.orden_deparmento.model;
 
-import java.util.List;
+import java.sql.Date;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,35 +11,39 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "habitacion")
+@Table(name = "Reserva")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Habitacion {
+
+public class Reserva {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(nullable = false)
-    private int cantCamas;
+    private Date fechaInicio;
 
     @Column(nullable = false)
-    private int cantPiezas;
+    private Date fechaFin;
 
-    @OneToMany(mappedBy = "habitacion", cascade = CascadeType.ALL)
-    private List<Reserva> reservas;
+ 
+
 
     @ManyToOne
-    @JoinColumn(name = "residencia_id")
-    @JsonBackReference
-    private Residencia residencia;
+    @JoinColumn(name = "habitacionId")
+    @JsonIgnoreProperties("reservas")
+    private Habitacion habitacion;
 
+    @ManyToOne
+    @JoinColumn(name = "usuarioId")
+    @JsonIgnoreProperties("reservas")
+    private Usuario usuario;
 }

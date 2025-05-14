@@ -8,4 +8,5 @@ import com.digital_minds.cl.orden_deparmento.model.Habitacion;
 @Repository
 public interface HabitacionRepository extends JpaRepository<Habitacion, Integer>{
 
+
 }
