@@ -2,6 +2,9 @@ package com.digital_minds.cl.orden_deparmento.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,13 +25,13 @@ public class Residencia {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private int id_residencia;
+    private int idResidencia;
 
     @Column(nullable=false)
-    private String nombre_residencia;
+    private String nombreResidencia;
 
     @Column(unique=true, nullable=false)
-    private int direccion;
+    private String direccion;
 
     @Column(unique=true, length=11, nullable=false)
     private int telefono;
@@ -37,9 +40,10 @@ public class Residencia {
     private String correo;
 
     @Column(nullable=false)
-    private String sitio_web;
+    private String sitioWeb;
 
-    @OneToMany// qué más va acá???
+    @OneToMany(mappedBy="residencia", cascade= CascadeType.ALL)
+    @JsonManagedReference
     private List<Habitacion> habitaciones;
 
 }

@@ -8,4 +8,5 @@ import com.digital_minds.cl.orden_deparmento.model.Residencia;
 @Repository
 public interface ResidenciaRepository extends JpaRepository<Residencia, Integer>{
 
+
 }
