@@ -42,5 +42,4 @@ public class Habitacion {
     @JoinColumn(name = "residencia_id")
     @JsonBackReference
     private Residencia residencia;
-
 }

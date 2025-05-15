@@ -46,4 +46,6 @@ public class Residencia {
     @JsonManagedReference
     private List<Habitacion> habitaciones;
 
+
+
 }

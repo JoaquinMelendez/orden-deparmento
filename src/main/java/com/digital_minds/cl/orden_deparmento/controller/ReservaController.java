@@ -21,8 +21,9 @@ public class ReservaController {
     @Autowired
     private ReservaService reservaService;
 
+    //Reserva
     @PostMapping
-    public ResponseEntity reservar(@RequestBody Reserva reserva) {
+    public ResponseEntity<?> reservar(@RequestBody Reserva reserva) {
         try{
             Reserva nuevaReserva = reservaService.hacerReserva(
                 reserva.getHabitacion().getId(),
@@ -34,11 +35,9 @@ public class ReservaController {
         } catch (RuntimeException e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
-
-        
     }    
-    
-    //Devolver todos los usuarios
+
+    //Devolver todas las reservas
     @GetMapping
     public ResponseEntity<List<Reserva>> listar(){
         List<Reserva> usuarios = reservaService.buscarTodos();
@@ -47,6 +46,4 @@ public class ReservaController {
         }
         return ResponseEntity.ok(usuarios);
     }
-    
-
 }
