@@ -34,9 +34,6 @@ public class Reserva {
     @Column(nullable = false)
     private Date fechaFin;
 
- 
-
-
     @ManyToOne
     @JoinColumn(name = "habitacionId")
     @JsonIgnoreProperties("reservas")
@@ -46,4 +43,8 @@ public class Reserva {
     @JoinColumn(name = "usuarioId")
     @JsonIgnoreProperties("reservas")
     private Usuario usuario;
+    
+    @ManyToOne
+    @JoinColumn(name = "estadoReservaId")
+    private EstadoReserva estadoReserva;
 }
