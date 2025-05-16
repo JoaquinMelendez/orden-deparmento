@@ -46,5 +46,6 @@ public class Reserva {
     
     @ManyToOne
     @JoinColumn(name = "estadoReservaId")
+    @JsonIgnoreProperties("reservas")
     private EstadoReserva estadoReserva;
 }

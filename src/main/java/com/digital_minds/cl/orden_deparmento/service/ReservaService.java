@@ -6,9 +6,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.digital_minds.cl.orden_deparmento.model.EstadoReserva;
 import com.digital_minds.cl.orden_deparmento.model.Habitacion;
 import com.digital_minds.cl.orden_deparmento.model.Reserva;
 import com.digital_minds.cl.orden_deparmento.model.Usuario;
+import com.digital_minds.cl.orden_deparmento.repository.EstadoReservaRepository;
 import com.digital_minds.cl.orden_deparmento.repository.HabitacionRepository;
 import com.digital_minds.cl.orden_deparmento.repository.ReservaRepository;
 import com.digital_minds.cl.orden_deparmento.repository.UsuarioRepository;
@@ -24,7 +26,10 @@ public class ReservaService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public Reserva hacerReserva(Integer habitacionId, Integer usuarioId, Date fechaInicio, Date fechaFin){
+    @Autowired
+    private EstadoReservaRepository estadoReservaRepository;
+
+    public Reserva hacerReserva(Integer habitacionId, Integer usuarioId, Date fechaInicio, Date fechaFin, Integer estadoReservaId){
         //Disponibilidad
         List<Reserva> reservas = reservaRepository.findByHabitacionId(habitacionId);
 
@@ -43,12 +48,17 @@ public class ReservaService {
         Usuario usuario = usuarioRepository.findById(usuarioId)
         .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
+        EstadoReserva estadoReserva = estadoReservaRepository.findById(estadoReservaId)
+                .orElseThrow(() -> new RuntimeException("Estado de reserva no encontrado"));
+
+
         Reserva nuevaReserva = new Reserva();
 
         nuevaReserva.setHabitacion(habitacion);
         nuevaReserva.setUsuario(usuario);
         nuevaReserva.setFechaInicio(fechaInicio);
         nuevaReserva.setFechaFin(fechaFin);
+        nuevaReserva.setEstadoReserva(estadoReserva);
 
         return reservaRepository.save(nuevaReserva);
 

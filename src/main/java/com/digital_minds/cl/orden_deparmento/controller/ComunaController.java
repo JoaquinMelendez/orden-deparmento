@@ -13,44 +13,44 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.digital_minds.cl.orden_deparmento.model.Region;
-import com.digital_minds.cl.orden_deparmento.service.RegionService;
+import com.digital_minds.cl.orden_deparmento.model.Comuna;
+import com.digital_minds.cl.orden_deparmento.service.ComunaService;
 
 @RestController
-@RequestMapping("/api/v1/regiones")
-public class RegionController {
+@RequestMapping("/api/v1/comunas")
+public class ComunaController {
 
     @Autowired
-    private RegionService regionService;
+    private ComunaService comunaService;
     
      @GetMapping
-     public ResponseEntity<List<Region>> listar() {
-        List<Region> regiones = regionService.findAll();
-        if (regiones.isEmpty()) {
+     public ResponseEntity<List<Comuna>> listar() {
+        List<Comuna> comunas = comunaService.findAll();
+        if (comunas.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.ok(regiones);
+        return ResponseEntity.ok(comunas);
     }
 
      @GetMapping("/{id}")
-    public ResponseEntity<Region> obtenerPorId(@PathVariable Integer id) {
-        Region region = regionService.findById(id);
-        if (region != null){
-            return ResponseEntity.ok(region);
+    public ResponseEntity<Comuna> obtenerPorId(@PathVariable Integer id) {
+        Comuna comuna= comunaService.findById(id);
+        if (comuna != null){
+            return ResponseEntity.ok(comuna);
         }
         return ResponseEntity.notFound().build();
     }
 
     @PostMapping
-    public ResponseEntity<Region> guardar(@RequestBody Region region) {
-        Region regionNueva = regionService.save(region);
-        return ResponseEntity.status(HttpStatus.CREATED).body(regionNueva);
+    public ResponseEntity<Comuna> guardar(@RequestBody Comuna comuna) {
+        Comuna comunaNueva = comunaService.save(comuna);
+        return ResponseEntity.status(HttpStatus.CREATED).body(comunaNueva);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarRegion(@PathVariable Integer id) {
+    public ResponseEntity<Void> eliminarComuna(@PathVariable Integer id) {
         try {
-            regionService.delete( id);
+            comunaService.delete(id);
             return ResponseEntity.noContent().build();
         } catch (Exception e) {
             return ResponseEntity.notFound().build();

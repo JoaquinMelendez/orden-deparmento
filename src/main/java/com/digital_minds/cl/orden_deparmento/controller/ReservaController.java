@@ -29,7 +29,8 @@ public class ReservaController {
                 reserva.getHabitacion().getId(),
                 reserva.getUsuario().getId(),
                 reserva.getFechaInicio(),
-                reserva.getFechaFin()
+                reserva.getFechaFin(),
+                reserva.getEstadoReserva().getId()
                 );
                 return ResponseEntity.ok(nuevaReserva);
         } catch (RuntimeException e){

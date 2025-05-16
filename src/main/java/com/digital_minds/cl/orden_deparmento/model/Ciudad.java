@@ -2,6 +2,7 @@ package com.digital_minds.cl.orden_deparmento.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
@@ -27,14 +28,15 @@ public class Ciudad {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column
     private String nombreCiudad;
 
     @ManyToOne
     @JoinColumn(name = "regionId")
-    private Region regiones;
+    @JsonBackReference
+    private Region region;
 
     @OneToMany(mappedBy="ciudad", cascade = CascadeType.ALL)
     @JsonManagedReference

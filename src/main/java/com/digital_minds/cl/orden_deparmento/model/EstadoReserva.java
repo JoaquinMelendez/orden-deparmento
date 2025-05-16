@@ -2,6 +2,8 @@ package com.digital_minds.cl.orden_deparmento.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,12 +24,13 @@ public class EstadoReserva {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column
     private String nombreEstado;
 
     @OneToMany(mappedBy = "estadoReserva")
+    @JsonIgnoreProperties("estadoReserva")
     private List<Reserva> reservas;
 
 }
