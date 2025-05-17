@@ -1,6 +1,7 @@
 package com.digital_minds.cl.orden_deparmento.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,18 +30,35 @@ public class ResidenciaService {
         return residenciaRepository.findById(id).orElse(null);
     }
 
-    public Residencia updateResidencia(Long id, Residencia residencia){
-        Residencia existente = residenciaRepository.findById(id.intValue()).orElse(null);
-        if (existente != null){
-            existente.setNombreResidencia(residencia.getNombreResidencia());
-            existente.setDireccion(residencia.getDireccion());
+    public Residencia patchResidencia(Integer id, Residencia parcialResidencia){
+        Optional<Residencia> residenciaOptional = residenciaRepository.findById(id);
+        if (residenciaOptional.isPresent()) {
+            
+            Residencia residenciaToUpdate = residenciaOptional.get();
+            
+            if (parcialResidencia.getNombreResidencia() != null) {
+                residenciaToUpdate.setNombreResidencia(parcialResidencia.getNombreResidencia());   
+            }
 
-            return residenciaRepository.save(existente);
+            if (parcialResidencia.getDireccion() != null) {
+                residenciaToUpdate.setDireccion(parcialResidencia.getDireccion());   
+            }
+
+            if (parcialResidencia.getTelefono() != null) {
+                residenciaToUpdate.setTelefono(parcialResidencia.getTelefono());   
+            }
+
+            if (parcialResidencia.getCorreo() != null) {
+                residenciaToUpdate.setCorreo(parcialResidencia.getCorreo());   
+            }
+
+            if (parcialResidencia.getSitioWeb() != null) {
+                residenciaToUpdate.setSitioWeb(parcialResidencia.getSitioWeb());   
+            }
+
+            return residenciaRepository.save(residenciaToUpdate);
+        } else {
+            return null; 
         }
-        return null;
     }
-
-    
-   
-
 }

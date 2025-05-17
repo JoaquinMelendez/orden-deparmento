@@ -27,7 +27,7 @@ public class EstadoReserva {
     private Integer id;
 
     @Column
-    private String nombreEstado;
+    private String nombreEstadoReserva;
 
     @OneToMany(mappedBy = "estadoReserva")
     @JsonIgnoreProperties("estadoReserva")

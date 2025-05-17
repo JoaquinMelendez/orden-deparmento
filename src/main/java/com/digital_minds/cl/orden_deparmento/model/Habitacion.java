@@ -29,11 +29,14 @@ public class Habitacion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false)
-    private int cantCamas;
+    @Column
+    private String nombreHabitacion;
 
     @Column(nullable = false)
-    private int cantPiezas;
+    private Integer cantCamas;
+
+    @Column(nullable = false)
+    private Integer cantPiezas;
 
     @OneToMany(mappedBy = "habitacion", cascade = CascadeType.ALL)
     private List<Reserva> reservas;

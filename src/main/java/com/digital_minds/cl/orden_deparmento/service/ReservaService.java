@@ -2,6 +2,7 @@ package com.digital_minds.cl.orden_deparmento.service;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -64,8 +65,47 @@ public class ReservaService {
 
     }
 
+    //Lista Reservas
     public List<Reserva> buscarTodos(){
         return reservaRepository.findAll();
     }
 
+    //Buscar Reserva por id
+    public Reserva findById(Integer id){
+        return reservaRepository.findById(id).orElse(null);
+    }
+
+    //Eliminar Reserva
+    public void delete(Integer id){
+        reservaRepository.deleteById(id);
+    }
+
+    //Actualizar reserva
+    public Reserva patchReserva(Integer id, Reserva parcialReserva){
+        Optional<Reserva> reservaOptional = reservaRepository.findById(id);
+        if (reservaOptional.isPresent()) {
+            
+            Reserva reservaToUpdate = reservaOptional.get();
+            
+            if (parcialReserva.getFechaInicio() != null) {
+                reservaToUpdate.setFechaInicio(parcialReserva.getFechaInicio());   
+            }
+            if (parcialReserva.getFechaFin() != null) {
+                reservaToUpdate.setFechaFin(parcialReserva.getFechaFin());   
+            }
+            if (parcialReserva.getEstadoReserva() != null) {
+                reservaToUpdate.setEstadoReserva(parcialReserva.getEstadoReserva());   
+            }
+            if (parcialReserva.getHabitacion() != null) {
+                reservaToUpdate.setHabitacion(parcialReserva.getHabitacion());   
+            }
+            return reservaRepository.save(reservaToUpdate);
+        } else {
+            return null; 
+        }
+    }
+
+    public List<Reserva> obtenerReservasPorHabitacion(Integer habitacionId) {
+        return reservaRepository.findByHabitacionId(habitacionId);
+    }
 }

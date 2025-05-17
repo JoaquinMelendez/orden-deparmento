@@ -3,6 +3,8 @@ package com.digital_minds.cl.orden_deparmento.model;
 import java.sql.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -30,6 +32,7 @@ public class Usuario {
     @Column(unique=true, nullable=false)
     private String correo;
 
+    @JsonIgnore
     @Column(nullable=false, length=20)
     private String contrasenna;
 

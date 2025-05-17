@@ -1,6 +1,8 @@
 package com.digital_minds.cl.orden_deparmento.service;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +30,7 @@ public class CiudadService {
     }
     public Ciudad updateCiudad(Integer id, Ciudad ciudad){
         Ciudad existente = ciudadRepository.findById(id.intValue()).orElse(null);
+
         if (existente != null){
             existente.setNombreCiudad(ciudad.getNombreCiudad());
 
@@ -36,6 +39,23 @@ public class CiudadService {
         }
         return null;
     }
+
+
+    public Ciudad patchCiudad(Integer id, Ciudad parcialCiudad){
+        Optional<Ciudad> ciudadOptional = ciudadRepository.findById(id);
+        if (ciudadOptional.isPresent()) {
+            
+            Ciudad ciudadToUpdate = ciudadOptional.get();
+            
+            if (parcialCiudad.getNombreCiudad() != null) {
+                ciudadToUpdate.setNombreCiudad(parcialCiudad.getNombreCiudad());   
+            }
+            return ciudadRepository.save(ciudadToUpdate);
+        } else {
+            return null; 
+        }
+    }
+
 
 
 

@@ -1,6 +1,7 @@
 package com.digital_minds.cl.orden_deparmento.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,24 @@ public class EstadoReservaService {
     public EstadoReserva buscarPorId(Integer id){
         return estadoReservaRepository.findById(id).get();
     }
+
+    public EstadoReserva patchEstadoReserva(Integer id, EstadoReserva parcialEstadoReserva){
+        Optional<EstadoReserva> estadoReservaOptional = estadoReservaRepository.findById(id);
+        if (estadoReservaOptional.isPresent()) {
+            
+            EstadoReserva estadoReservaToUpdate = estadoReservaOptional.get();
+            
+            if (parcialEstadoReserva.getNombreEstadoReserva() != null) {
+                estadoReservaToUpdate.setNombreEstadoReserva(parcialEstadoReserva.getNombreEstadoReserva());   
+            }
+
+            return estadoReservaRepository.save(estadoReservaToUpdate);
+        } else {
+            return null; 
+        }
+    }
+
+
 
 
 

@@ -37,7 +37,7 @@ public class Residencia {
     private String direccion;
 
     @Column(unique=true, length=11, nullable=false)
-    private int telefono;
+    private Integer telefono;
 
     @Column(nullable=false)
     private String correo;

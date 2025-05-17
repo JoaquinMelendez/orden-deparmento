@@ -50,8 +50,8 @@ public class ResidenciaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Residencia> actualizar(@PathVariable Long id, @RequestBody Residencia residencia) {
-       Residencia residenciaActualizada = residenciaService.updateResidencia(id, residencia);
+    public ResponseEntity<Residencia> actualizar(@PathVariable Integer id, @RequestBody Residencia residencia) {
+       Residencia residenciaActualizada = residenciaService.patchResidencia(id, residencia);
        if (residenciaActualizada != null){
         return ResponseEntity.ok(residenciaActualizada);
        }
@@ -59,8 +59,8 @@ public class ResidenciaController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Residencia> actualizarParcial(@PathVariable Long id, @RequestBody Residencia parcialResidencia) {
-        Residencia residenciaActualizado = residenciaService.updateResidencia(id, parcialResidencia);
+    public ResponseEntity<Residencia> actualizarParcial(@PathVariable Integer id, @RequestBody Residencia parcialResidencia) {
+        Residencia residenciaActualizado = residenciaService.patchResidencia(id, parcialResidencia);
         if (residenciaActualizado != null) {
             return ResponseEntity.ok(residenciaActualizado);
         } else {
