@@ -77,6 +77,18 @@ public class ResidenciaController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/porTipoResidencia/{tipoId}")
+    public ResponseEntity<List<Residencia>> getResidenciasPorTipo(@PathVariable("tipoId") Integer tipoResidenciaId) {
+        List<Residencia> residencias = residenciaService.obtenerResidenciasPorTipo(tipoResidenciaId);
+        
+        if (residencias.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(residencias);
+        }
+    }
+
 }
 
 

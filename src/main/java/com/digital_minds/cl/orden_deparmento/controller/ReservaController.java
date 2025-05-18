@@ -29,11 +29,11 @@ public class ReservaController {
     public ResponseEntity<?> reservar(@RequestBody Reserva reserva) {
         try{
             Reserva nuevaReserva = reservaService.hacerReserva(
-                reserva.getHabitacion().getId(),
-                reserva.getUsuario().getId(),
+                reserva.getHabitacion().getIdHabitacion(),
+                reserva.getUsuario().getIdUsuario(),
                 reserva.getFechaInicio(),
                 reserva.getFechaFin(),
-                reserva.getEstadoReserva().getId()
+                reserva.getEstadoReserva().getIdEstadoReserva()
                 );
                 return ResponseEntity.ok(nuevaReserva);
         } catch (RuntimeException e){

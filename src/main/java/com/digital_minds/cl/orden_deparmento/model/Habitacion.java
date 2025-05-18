@@ -3,6 +3,7 @@ package com.digital_minds.cl.orden_deparmento.model;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -27,7 +28,7 @@ public class Habitacion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer idHabitacion;
 
     @Column
     private String nombreHabitacion;
@@ -39,10 +40,11 @@ public class Habitacion {
     private Integer cantPiezas;
 
     @OneToMany(mappedBy = "habitacion", cascade = CascadeType.ALL)
+    @JsonManagedReference(value = "reservas-habitacion")
     private List<Reserva> reservas;
 
     @ManyToOne
-    @JoinColumn(name = "residencia_id")
-    @JsonBackReference
+    @JoinColumn(name = "idResidencia")
+    @JsonBackReference(value = "habitaciones-residencia")
     private Residencia residencia;
 }

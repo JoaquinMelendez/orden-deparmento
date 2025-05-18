@@ -28,17 +28,17 @@ public class Ciudad {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Integer id;
+    private Integer idCiudad;
 
     @Column
     private String nombreCiudad;
 
     @ManyToOne
-    @JoinColumn(name = "regionId")
-    @JsonBackReference
+    @JoinColumn(name = "idRegion")
+    @JsonBackReference(value = "region-ciudad")
     private Region region;
 
     @OneToMany(mappedBy="ciudad", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonManagedReference(value = "ciudad-comuna")
     private List<Comuna> comunas;
 }

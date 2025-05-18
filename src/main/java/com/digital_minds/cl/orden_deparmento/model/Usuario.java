@@ -3,7 +3,11 @@ package com.digital_minds.cl.orden_deparmento.model;
 import java.sql.Date;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -26,14 +30,13 @@ public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer id;
+    private Integer idUsuario;
 
     @Column(unique=true, nullable=false)
     private String correo;
 
-    @JsonIgnore
     @Column(nullable=false, length=20)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String contrasenna;
 
     @Column(unique=true, length= 13, nullable= false)
@@ -49,8 +52,11 @@ public class Usuario {
     private String apellidoMaterno;
 
     @Column(nullable=false)
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaNacimiento;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @JsonManagedReference(value = "usuario-reserva")
     private List<Reserva> reservas;
 }

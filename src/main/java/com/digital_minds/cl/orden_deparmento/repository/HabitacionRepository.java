@@ -12,8 +12,8 @@ import com.digital_minds.cl.orden_deparmento.model.Habitacion;
 @Repository
 public interface HabitacionRepository extends JpaRepository<Habitacion, Integer>{
 
-    @Query("SELECT h FROM Habitacion h WHERE h.residencia.id = :residenciaId")
-    List<Habitacion> buscarPorResidencia(@Param("residenciaId") Integer residenciaId);
+    @Query("SELECT h FROM Habitacion h WHERE h.residencia.id = :idResidencia")
+    List<Habitacion> buscarPorResidencia(@Param("idResidencia") Integer idResidencia);
 }
 
 

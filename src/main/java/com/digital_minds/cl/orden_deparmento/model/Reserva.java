@@ -2,6 +2,7 @@ package com.digital_minds.cl.orden_deparmento.model;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
@@ -26,7 +27,7 @@ public class Reserva {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer idReserva;
 
     @Column(nullable = false)
     private Date fechaInicio;
@@ -35,17 +36,17 @@ public class Reserva {
     private Date fechaFin;
 
     @ManyToOne
-    @JoinColumn(name = "habitacionId")
-    @JsonIgnoreProperties("reservas")
+    @JoinColumn(name = "idHabitacion")
+    @JsonBackReference(value = "reservas-habitacion")
     private Habitacion habitacion;
 
     @ManyToOne
-    @JoinColumn(name = "usuarioId")
-    @JsonIgnoreProperties("reservas")
+    @JoinColumn(name = "idUsuario")
+    @JsonBackReference(value = "usuario-reserva")
     private Usuario usuario;
     
     @ManyToOne
-    @JoinColumn(name = "estadoReservaId")
+    @JoinColumn(name = "idEstadoReserva")
     @JsonIgnoreProperties("reservas")
     private EstadoReserva estadoReserva;
 }

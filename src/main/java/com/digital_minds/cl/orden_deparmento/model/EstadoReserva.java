@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,12 +25,12 @@ public class EstadoReserva {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer idEstadoReserva;
 
-    @Column
+    @Column(unique = true, nullable = false)
     private String nombreEstadoReserva;
 
-    @OneToMany(mappedBy = "estadoReserva")
+    @OneToMany(mappedBy = "estadoReserva", cascade=CascadeType.ALL)
     @JsonIgnoreProperties("estadoReserva")
     private List<Reserva> reservas;
 

@@ -12,8 +12,7 @@ import com.digital_minds.cl.orden_deparmento.model.Reserva;
 @Repository
 public interface ReservaRepository extends JpaRepository<Reserva, Integer>{
 
-    @Query("SELECT r FROM Reserva r WHERE r.habitacion.id = :habitacionId")
-    List<Reserva> buscarPorHabitacion(@Param("habitacionId") Integer habitacionId);
-        List<Reserva> findByHabitacionId(Integer habitacionId);
+    @Query("SELECT r FROM Reserva r WHERE r.habitacion.id = :idHabitacion")
+    List<Reserva> buscarPorHabitacion(@Param("idHabitacion") Integer idHabitacion);
     
 }

@@ -24,21 +24,22 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class Comuna {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Integer id;
+    private Integer idComuna;
 
     @Column
     private String nombreComuna;
 
     @ManyToOne
-    @JoinColumn(name = "ciudadId")
-    @JsonBackReference
+    @JoinColumn(name = "idCiudad")
+    @JsonBackReference(value = "ciudad-comuna")
     private Ciudad ciudad;
 
     @OneToMany(mappedBy="comuna", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonManagedReference(value = "comuna-residencias")
     private List<Residencia> residencias;
 }

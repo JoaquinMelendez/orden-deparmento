@@ -1,6 +1,5 @@
 package com.digital_minds.cl.orden_deparmento.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -22,16 +21,15 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class Region {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Integer id;
+    private Integer idRegion;
 
     @Column
     private String nombreRegion;
 
     @OneToMany(mappedBy="region", cascade = CascadeType.ALL)
-    @JsonManagedReference
-    private List<Ciudad> ciudades = new ArrayList();
+    @JsonManagedReference(value = "region-ciudad")
+    private List<Ciudad> ciudades;
 }

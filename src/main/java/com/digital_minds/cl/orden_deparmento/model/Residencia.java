@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -46,11 +47,16 @@ public class Residencia {
     private String sitioWeb;
 
     @OneToMany(mappedBy="residencia", cascade= CascadeType.ALL)
-    @JsonManagedReference
+    @JsonManagedReference(value = "habitaciones-residencia")
     private List<Habitacion> habitaciones;
 
     @ManyToOne
-    @JoinColumn(name = "comunaId")
-    @JsonBackReference
+    @JoinColumn(name = "idComuna")
+    @JsonBackReference(value = "comuna-residencias")
     private Comuna comuna;
+
+    @ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name = "idTipoResidencia")
+    @JsonBackReference(value = "residencia-tiporesidencia")
+    private TipoResidencia tipoResidencia;
 }

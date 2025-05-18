@@ -61,4 +61,8 @@ public class ResidenciaService {
             return null; 
         }
     }
+
+    public List<Residencia> obtenerResidenciasPorTipo(Integer tipoResidenciaId) {
+        return residenciaRepository.buscarPorTipoResidencia(tipoResidenciaId);
+    }
 }

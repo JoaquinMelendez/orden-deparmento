@@ -32,7 +32,7 @@ public class ReservaService {
 
     public Reserva hacerReserva(Integer habitacionId, Integer usuarioId, Date fechaInicio, Date fechaFin, Integer estadoReservaId){
         //Disponibilidad
-        List<Reserva> reservas = reservaRepository.findByHabitacionId(habitacionId);
+        List<Reserva> reservas = reservaRepository.buscarPorHabitacion(habitacionId);
 
         boolean ocupada = reservas.stream().anyMatch(r ->
             !r.getFechaFin().before(fechaInicio) && !r.getFechaInicio().after(fechaFin)
@@ -106,6 +106,6 @@ public class ReservaService {
     }
 
     public List<Reserva> obtenerReservasPorHabitacion(Integer habitacionId) {
-        return reservaRepository.findByHabitacionId(habitacionId);
+        return reservaRepository.buscarPorHabitacion(habitacionId);
     }
 }
